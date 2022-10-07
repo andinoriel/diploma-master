@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  core:
+    build:
+      context: ./
+    stdin_open: true
+    tty: true
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

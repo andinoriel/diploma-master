@@ -1,0 +1,29 @@
+version: "3"
+
+tasks:
+  init:
+    cmds:
+      - task: down
+      - task: pull
+      - task: build
+
+  run:
+    cmds:
+      - docker-compose up
+      # - docker attach $(docker-compose ps -q diploma-master-core)
+
+  stop:
+    cmds:
+      - docker-compose stop
+
+  down:
+    cmds:
+      - docker-compose down -v --remove-orphans
+
+  pull:
+    cmds:
+      - docker-compose pull
+
+  build:
+    cmds:
+      - docker-compose build

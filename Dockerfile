@@ -1,14 +1,14 @@
 FROM ubuntu:focal
 
+WORKDIR /app
+
 RUN groupadd -g 999 appuser && useradd -r -u 999 -g appuser appuser
-RUN mkdir -p /app
 RUN chown appuser:appuser /app
 
-# RUN apt-get update && apt-get install -y \
-#
+RUN apt-get update && apt-get install -y \
+  dialog
 
-WORKDIR /app
-COPY . /app
+COPY . .
 
 USER appuser
 CMD [ "bash", "run.sh" ]

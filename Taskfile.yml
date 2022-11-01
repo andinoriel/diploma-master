@@ -9,21 +9,21 @@ tasks:
 
   run:
     cmds:
-      - docker-compose up
-      # - docker attach $(docker-compose ps -q diploma-master-core)
+      - docker compose up -d
+      - docker attach $(docker compose ps -q diploma-master-core)
 
   stop:
     cmds:
-      - docker-compose stop
+      - docker compose stop
 
   down:
     cmds:
-      - docker-compose down -v --remove-orphans
+      - docker compose down -v --remove-orphans
 
   pull:
     cmds:
-      - docker-compose pull
+      - docker compose pull
 
   build:
     cmds:
-      - docker-compose build
+      - docker compose build

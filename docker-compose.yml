@@ -1,13 +1,15 @@
 version: "3.8"
 
 services:
-  core:
+  diploma-master-core:
     build:
       context: ./
     stdin_open: true
     tty: true
     networks:
       - app-network
+    volumes:
+      - .:/app
 
 networks:
   app-network:

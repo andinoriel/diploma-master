@@ -43,5 +43,8 @@ trap ctrl_c TSTP
 # say hello
 source $PROJ_ROOT_DIR/modules/greetings.sh dialog_greetings
 
+# show veracrypt menu
+source $PROJ_ROOT_DIR/modules/encryption/veracrypt/veracrypt.sh dialog_modules_encryption_veracrypt_main
+
 ctrl_c
 

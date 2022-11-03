@@ -6,11 +6,8 @@ services:
       context: ./
     stdin_open: true
     tty: true
-    networks:
-      - app-network
+    privileged: true
+    cap_add:
+      - SYS_ADMIN
     volumes:
       - .:/app
-
-networks:
-  app-network:
-    driver: bridge

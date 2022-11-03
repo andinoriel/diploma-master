@@ -17,7 +17,7 @@ source $PROJ_ROOT_DIR/utility/utility.sh
 
 dialog_input_path() {
   while true; do
-    path=$($DIALOG --title "Choose file" --fselect $HOME/ 100 100 3>&1 1>&2 2>&3)
+    path=$($DIALOG --title "Choose file" --fselect $PROJ_ROOT_DIR 15 80 3>&1 1>&2 2>&3)
 
     case $? in
     $DIALOG_OK)

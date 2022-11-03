@@ -191,11 +191,6 @@ dialog_modules_encryption_veracrypt_encrypt() {
             --pim=0 -c "$PROJ_ROOT_DIR/out/$fdname.vc" 2>&1) | tee "$log" | $DIALOG --progressbox 20 70
           $DIALOG --clear --textbox "$log" 20 70
 
-          /usr/bin/env python3 $PROJ_ROOT_DIR/utility/db.py -f $PROJ_DB_PATH -l \
-            'encryption:veracrypt:encryption' \
-            "$(cat $log)" \
-            'ok'
-
           rm -f $log
 
           # mount created volume
@@ -235,4 +230,4 @@ dialog_modules_encryption_veracrypt_encrypt() {
   done
 }
 
-RESOLVE_FUNC_CALL $@
+RESOLVE_FUNC_CALL "$@"

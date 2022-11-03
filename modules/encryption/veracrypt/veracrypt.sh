@@ -59,4 +59,4 @@ dialog_modules_encryption_veracrypt_main() {
   done
 }
 
-RESOLVE_FUNC_CALL $@
+RESOLVE_FUNC_CALL "$@"

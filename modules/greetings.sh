@@ -44,4 +44,4 @@ dialog_greetings() {
 
 }
 
-RESOLVE_FUNC_CALL $@
+RESOLVE_FUNC_CALL "$@"

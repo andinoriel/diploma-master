@@ -114,4 +114,4 @@ dialog_modules_encryption_veracrypt_decrypt() {
   done
 }
 
-RESOLVE_FUNC_CALL $@
+RESOLVE_FUNC_CALL "$@"

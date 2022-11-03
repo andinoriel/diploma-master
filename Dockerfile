@@ -19,4 +19,4 @@ RUN apt-get update && apt-get install -y \
 COPY . .
 
 USER appuser
-CMD [ "run.sh" ]
+CMD [ "bash", "run.sh" ]

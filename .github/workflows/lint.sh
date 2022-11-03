@@ -9,6 +9,7 @@ is_bash() {
     return 1
 }
 
+# ??? - not all paths ?
 while IFS= read -r -d $'' file; do
     if is_bash "$file"; then
         shellcheck -e SC1090 -W0 -s bash "$file"

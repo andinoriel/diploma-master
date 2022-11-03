@@ -130,4 +130,4 @@ dialog_get_sup() {
   #endregion
 }
 
-RESOLVE_FUNC_CALL $@
+RESOLVE_FUNC_CALL "$@"

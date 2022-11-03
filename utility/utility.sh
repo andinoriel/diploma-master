@@ -47,7 +47,7 @@
 : ${RC_OK=0}
 : ${RC_ERROR=1}
 
-# RESOLVE_FUNC_CALL $@
+# RESOLVE_FUNC_CALL "$@"
 RESOLVE_FUNC_CALL() {
   if declare -f "$1" >/dev/null; then
     "$@"

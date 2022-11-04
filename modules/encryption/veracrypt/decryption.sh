@@ -15,7 +15,7 @@
 #
 # =================================================================
 
-source $PROJ_ROOT_DIR/utility/utility.sh
+source "$PROJ_ROOT_DIR"/utility/utility.sh
 
 dialog_modules_encryption_veracrypt_decrypt() {
   local path=""
@@ -46,11 +46,11 @@ dialog_modules_encryption_veracrypt_decrypt() {
       $DMENU_OPTION_3)
         correct=1
 
-        if [ "$path" == "" ]; then
+        if [[ $path == "" ]]; then
           correct=0
           $DIALOG --title "Error" --msgbox "Please choose VeraCrypt container..." 10 40
         fi
-        if [ "$password" == "" ]; then
+        if [[ $password == "" ]]; then
           correct=0
           $DIALOG --title "Error" --msgbox "Please enter password..." 10 40
         fi
@@ -64,7 +64,7 @@ dialog_modules_encryption_veracrypt_decrypt() {
           SUDO_CRED_LOCK_RESET
 
           source $PROJ_ROOT_DIR/utility/common.sh dialog_get_sup
-          if [ $? -eq $RC_ERROR ]; then
+          if [[ $? -eq $RC_ERROR ]]; then
             continue
           fi
           rpass=$retval
@@ -74,7 +74,7 @@ dialog_modules_encryption_veracrypt_decrypt() {
           mkdir -p $PROJ_ROOT_DIR/out/$fdname.dir
 
           # mount volume from a given path
-          sudo -S -k -p "" veracrypt -t --pim=0 --keyfiles="" --protect-hidden=no \
+          sudo -E -S -k -p "" veracrypt -m=nokernelcrypto -t --pim=0 --keyfiles="" --protect-hidden=no \
             --password="$password" --mount "$path" "$mntdir" <<<"$rpass"
 
           # move file(s) from the volume
@@ -82,7 +82,7 @@ dialog_modules_encryption_veracrypt_decrypt() {
           mv "$mntdir"/* $PROJ_ROOT_DIR/out/"$fdname".dir
 
           # unmount volume
-          sudo -S -k -p "" veracrypt -t -d "$path" <<<"$rpass"
+          sudo -E -S -k -p "" veracrypt -m=nokernelcrypto -t -d "$path" <<<"$rpass"
 
           # delete volume
           rm -f "$path"

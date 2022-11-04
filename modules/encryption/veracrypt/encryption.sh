@@ -15,10 +15,10 @@
 #
 # =================================================================
 
-source $PROJ_ROOT_DIR/utility/utility.sh
+source "$PROJ_ROOT_DIR"/utility/utility.sh
 
 choose_encalg() {
-  option=$($DIALOG --clear --title "Choose the encryption algorithm" \
+  option=$("$DIALOG" --clear --title "Choose the encryption algorithm" \
     --menu "" 20 50 4 \
     "$DMENU_OPTION_1" "AES" \
     "$DMENU_OPTION_2" "Camellia" \
@@ -147,20 +147,20 @@ dialog_modules_encryption_veracrypt_encrypt() {
       $DMENU_OPTION_4)
         correct=1
 
-        if [ "$path" == "" ]; then
+        if [[ $path == "" ]]; then
           correct=0
           $DIALOG --title "Error" --msgbox "Please choose file or dir..." 10 40
         fi
-        if [ "$encalg" == "" ]; then
+        if [[ $encalg == "" ]]; then
           correct=0
           $DIALOG --title "Error" --msgbox "Please choose encryption algorithm..." 10 40
         fi
-        if [ "$password" == "" ]; then
+        if [[ $password == "" ]]; then
           correct=0
           $DIALOG --title "Error" --msgbox "Please enter password..." 10 40
         fi
 
-        if [ $correct -eq 1 ]; then
+        if [[ $correct -eq 1 ]]; then
 
           local fdsize=$(du -sb $path | cut -f1)
           # case 1: min FAT size - 299008
@@ -185,7 +185,7 @@ dialog_modules_encryption_veracrypt_encrypt() {
           local log=$PROJ_ROOT_DIR/out/veracrypt$(date +%F_%H-%M-%S).log
           # creating vc volume
           # note: --hash=<RIPEMD-160|SHA-256|SHA-512|Whirlpool|Streebog>
-          (veracrypt -t --size=$size --password="$password" -k "" \
+          (veracrypt -m=nokernelcrypto -t --size=$size --password=$password -k "" \
             --random-source=/dev/urandom --volume-type=normal \
             --encryption=$encalg --hash=SHA-512 --filesystem=FAT \
             --pim=0 -c "$PROJ_ROOT_DIR/out/$fdname.vc" 2>&1) | tee "$log" | $DIALOG --progressbox 20 70
@@ -194,14 +194,14 @@ dialog_modules_encryption_veracrypt_encrypt() {
           rm -f $log
 
           # mount created volume
-          sudo -S -k -p "" veracrypt -t --pim=0 --keyfiles="" --protect-hidden=no \
+          sudo -E -S -k -p "" veracrypt -m=nokernelcrypto -t --pim=0 --keyfiles="" --protect-hidden=no \
             --password="$password" --mount "$PROJ_ROOT_DIR/out/$fdname.vc" "$mntdir" <<<"$rpass"
 
           # copy selected file or dir to the volume
           cp -r "$path" "$mntdir"
 
           # unmount created volume
-          sudo -S -k -p "" veracrypt -t -d "$PROJ_ROOT_DIR/out/$fdname.vc" <<<"$rpass"
+          sudo -E -S -k -p "" veracrypt -m=nokernelcrypto -t -d "$PROJ_ROOT_DIR/out/$fdname.vc" <<<"$rpass"
 
           rmdir "$mntdir"
 

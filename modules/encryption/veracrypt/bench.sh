@@ -127,14 +127,12 @@ modules_encryption_veracrypt_bench() {
 
   SUDO_CRED_LOCK_RESET
 
-  source "$PROJ_ROOT_DIR"/utility/common.sh dialog_get_sup
-  if [ $? -eq "$RC_ERROR" ]; then
-    return
-  fi
+  source $PROJ_ROOT_DIR/utility/common.sh dialog_get_sup
+  [[ $? -eq "$RC_ERROR" ]] && return
   rpass=$retval
 
   local log=$PROJ_ROOT_DIR/out/vcbench$(date +%F_%H-%M-%S).log
-  sudo -S -k -p "" bash -c \
+  sudo -E -S -k -p "" bash -c \
     "$(declare -f modules_encryption_veracrypt_bench_inner); modules_encryption_veracrypt_bench_inner" \
     <<<"$rpass" | tee "$log" | $DIALOG --progressbox 80 125
   $DIALOG --textbox "$log" 80 125

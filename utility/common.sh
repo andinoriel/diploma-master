@@ -13,7 +13,7 @@
 #
 # =================================================================
 
-source $PROJ_ROOT_DIR/utility/utility.sh
+source "$PROJ_ROOT_DIR"/utility/utility.sh
 
 dialog_input_path() {
   while true; do
@@ -130,4 +130,4 @@ dialog_get_sup() {
   #endregion
 }
 
-RESOLVE_FUNC_CALL "$@"
+RESOLVE_FUNC_CALL $@

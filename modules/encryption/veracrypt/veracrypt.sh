@@ -15,7 +15,7 @@
 #
 # =================================================================
 
-source $PROJ_ROOT_DIR/utility/utility.sh
+source "$PROJ_ROOT_DIR"/utility/utility.sh
 
 dialog_modules_encryption_veracrypt_main() {
   while true; do

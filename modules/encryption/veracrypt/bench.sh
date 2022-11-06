@@ -17,6 +17,13 @@
 
 source $PROJ_ROOT_DIR/utility/utility.sh
 
+unwrap_time_to_sec() {
+  [[ $unwrapped_time =~ ([0-9]+m) ]] && minutes="${BASH_REMATCH[1]::-1}"
+  [[ $unwrapped_time =~ ([0-9]+\.[0-9]{3}) ]] && seconds="${BASH_REMATCH[1]}"
+
+  retval=$(python3 -c "print($minutes*60+$seconds, end='')")
+}
+
 modules_encryption_veracrypt_bench_inner() {
   #region ROOT IS REQUIRED
 
@@ -46,6 +53,9 @@ modules_encryption_veracrypt_bench_inner() {
   local benchdir=$PROJ_ROOT_DIR/out/bench/vc/
   mkdir -p "$mntdir"
   mkdir -p "$benchdir"
+
+  local csvfile="$PROJ_ROOT_DIR/out/data$(date +%F_%H-%M-%S).csv"
+  echo "size,hash+algorithm,total time,speed(mb/s)" >> "$csvfile"
 
   for current_size in "${size[@]}"; do
     for current_hash in "${hash[@]}"; do
@@ -92,6 +102,18 @@ modules_encryption_veracrypt_bench_inner() {
           "$((current_size / 1024 / 1024)) MB" "$current_hash" "$current_encalg" \
           "$volume_create_time" "$volume_fill_time" "$elapsed_fill_speed"
 
+        unwrapped_time=$volume_create_time
+        unwrap_time_to_sec "\${unwrapped_time}"
+        volume_create_time=$retval
+
+        unwrapped_time=$volume_fill_time
+        unwrap_time_to_sec "\${unwrapped_time}"
+        volume_fill_time=$retval
+
+        total_time=$(python3 -c "print(round($volume_create_time + $volume_fill_time, 3))")
+
+        echo "$((current_size / 1024 / 1024)),$current_hash--$current_encalg,$total_time,$elapsed_fill_speed" >> $csvfile
+
         # unmount created volume
         veracrypt -m=nokernelcrypto -t -d "$container_name"
 
@@ -128,7 +150,7 @@ modules_encryption_veracrypt_bench() {
 
   local log=$PROJ_ROOT_DIR/out/vcbench$(date +%F_%H-%M-%S).log
   sudo -E -S -k -p "" bash -c \
-    "$(declare -f modules_encryption_veracrypt_bench_inner); modules_encryption_veracrypt_bench_inner" \
+    "$(declare -f modules_encryption_veracrypt_bench_inner);$(declare -f unwrap_time_to_sec);modules_encryption_veracrypt_bench_inner" \
     <<<"$rpass" | tee "$log" | $DIALOG --progressbox 80 125
   $DIALOG --textbox "$log" 80 125
 

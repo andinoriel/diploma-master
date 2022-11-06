@@ -15,7 +15,7 @@
 #
 # =================================================================
 
-source "$PROJ_ROOT_DIR"/utility/utility.sh
+source $PROJ_ROOT_DIR/utility/utility.sh
 
 choose_encalg() {
   option=$("$DIALOG" --clear --title "Choose the encryption algorithm" \

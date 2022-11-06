@@ -15,7 +15,7 @@
 #
 # =================================================================
 
-source "$PROJ_ROOT_DIR"/utility/utility.sh
+source $PROJ_ROOT_DIR/utility/utility.sh
 
 modules_encryption_veracrypt_bench_inner() {
   #region ROOT IS REQUIRED
@@ -75,9 +75,8 @@ modules_encryption_veracrypt_bench_inner() {
         # fill the container with 25 MB files and time it
         local volume_fill_time=$( (time (for ((i = 1; i <= $file_count; i++)); do
           dd if=/dev/urandom of="$mntdir/$i.dat" \
-            bs=26214400 count=1
-        done)) 2>&1 |
-          grep -i "real" | sed "s/real//" | sed "s/ //g" | tr "\t" " ")
+          bs=26214400 count=1
+        done)) 2>&1 | grep -i "real" | sed "s/real//" | sed "s/ //g" | tr "\t" " ")
 
         local fill_time_end=$(date +%s)
 
@@ -92,8 +91,6 @@ modules_encryption_veracrypt_bench_inner() {
         printf "%-10s | %-10s | %-30s | %-20s | %-20s | %-10s\n" \
           "$((current_size / 1024 / 1024)) MB" "$current_hash" "$current_encalg" \
           "$volume_create_time" "$volume_fill_time" "$elapsed_fill_speed"
-
-        # TODO: export to csv
 
         # unmount created volume
         veracrypt -m=nokernelcrypto -t -d "$container_name"
@@ -110,10 +107,8 @@ modules_encryption_veracrypt_bench_inner() {
   echo "$separator"
 
   local time_end_unix=$(date +%s)
-  local elapsed_time=$(("${time_end_unix}" - "${time_start_unix}"))
+  local elapsed_time=$((${time_end_unix} - ${time_start_unix}))
   local elapsed_time=$(date -d@$elapsed_time -u +%H:%M:%S)
-
-  # TODO: export to csv
 
   echo "- Completed on $(date "+%Y-%m-%d %k:%M:%S")"
   echo "- Elapsed Time: $elapsed_time"

@@ -13,7 +13,7 @@
 #
 # =================================================================
 
-source "$PROJ_ROOT_DIR"/utility/utility.sh
+source $PROJ_ROOT_DIR/utility/utility.sh
 
 dialog_input_path() {
   while true; do

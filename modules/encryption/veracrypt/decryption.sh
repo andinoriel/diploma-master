@@ -24,7 +24,7 @@ dialog_modules_encryption_veracrypt_decrypt() {
   while true; do
     option=$($DIALOG --clear --title "VeraCrypt - Decryption" \
       --menu "" 20 70 4 \
-      "$DMENU_OPTION_1" "Choose TrueCrypt container... $([ -z $path ] && echo || echo [$(basename "$path")])" \
+      "$DMENU_OPTION_1" "Choose VeraCrypt container... $([ -z $path ] && echo || echo [$(basename "$path")])" \
       "$DMENU_OPTION_2" "Enter password... $([ -z $password ] && echo || echo [*])" \
       "$DMENU_OPTION_3" "Process" 3>&1 1>&2 2>&3)
 

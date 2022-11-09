@@ -19,7 +19,7 @@ source $PROJ_ROOT_DIR/utility/utility.sh
 
 choose_encalg() {
   option=$("$DIALOG" --clear --title "Choose the encryption algorithm" \
-    --menu "" 20 50 4 \
+    --menu "" 20 50 15 \
     "$DMENU_OPTION_1" "AES" \
     "$DMENU_OPTION_2" "Camellia" \
     "$DMENU_OPTION_3" "Kuznyechik" \

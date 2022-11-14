@@ -27,7 +27,7 @@ unwrap_time_to_sec() {
 modules_encryption_veracrypt_bench_inner() {
   #region ROOT IS REQUIRED
 
-  local size=(1073741824) # 50MB 100MB 200MB 500MB 1GB 52428800 104857600 209715200 524288000
+  local size=(52428800 104857600 209715200 524288000 1073741824) # 50MB 100MB 200MB 500MB 1GB
   local hash=(SHA-256 RIPEMD-160 SHA-512 Whirlpool Streebog)
   local encalg=(AES Camellia Kuznyechik Serpent Twofish AES-Twofish AES-Twofish-Serpent Camellia-Kuznyechik Camellia-Serpent Kuznyechik-AES Kuznyechik-Serpent-Camellia Kuznyechik-Twofish Serpent-AES Serpent-Twofish-AES Twofish-Serpent)
 

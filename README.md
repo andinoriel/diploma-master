@@ -32,9 +32,30 @@ $ task down # also stop and remove containers
   <summary>Expand</summary>
 
   <p align="center">
-
+    <img src="screenshots/1.png" width="1280"/>
+    <img src="screenshots/2.png" width="1280"/>
+    <img src="screenshots/3.png" width="1280"/>
+    <img src="screenshots/4.png" width="1280"/>
+    <img src="screenshots/5.png" width="1280"/>
+    <img src="screenshots/6.png" width="1280"/>
+    <img src="screenshots/7.png" width="1280"/>
+    <img src="screenshots/8.png" width="1280"/>
+    <img src="screenshots/9.png" width="1280"/>
+    <img src="screenshots/10.png" width="1280"/>
+    <img src="screenshots/11.png" width="1280"/>
+    <img src="screenshots/12.png" width="1280"/>
+    <img src="screenshots/13.png" width="1280"/>
+    <img src="screenshots/14.png" width="1280"/>
+    <img src="screenshots/15.png" width="1280"/>
+    <img src="screenshots/16.png" width="1280"/>
+    <img src="screenshots/17.png" width="1280"/>
+    <img src="screenshots/18.png" width="1280"/>
   </p>
 </details>
+
+## Samples
+
+For the examples of finished csv and bench report see [csv](samples/data2022-11-08_08-49-35.csv), [log](samples/vcbench2022-11-08_08-49-35.log).
 
 ## Credits
 
